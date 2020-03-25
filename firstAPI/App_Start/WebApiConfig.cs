@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace firstAPI
 {
@@ -12,6 +13,7 @@ namespace firstAPI
             // Web API configuration and services
 
             // Web API routes
+            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", "*", "*"));
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
