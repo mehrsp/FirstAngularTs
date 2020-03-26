@@ -21,7 +21,7 @@ namespace firstAPI.Controllers
                 using (var contex = new AppDbContext())
                 {
                     var entries = contex.Entries.ToList();
-                    return Ok();
+                    return Ok(entries);
 
 
 
