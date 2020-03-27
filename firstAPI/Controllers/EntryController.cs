@@ -37,8 +37,8 @@ namespace firstAPI.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
-                {
+                if(!ModelState.IsValid) return BadRequest(ModelState);
+
                     using (var context = new AppDbContext())
                     {
                         context.Entries.Add(entry);
@@ -47,11 +47,7 @@ namespace firstAPI.Controllers
 
                     }
 
-                }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+                
 
             }
             catch(Exception ex)
