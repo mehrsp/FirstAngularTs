@@ -32,6 +32,34 @@ namespace firstAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost]
+        public IHttpActionResult CreateNewEntry([FromBody]Entry entry)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    using (var context = new AppDbContext())
+                    {
+                        context.Entries.Add(entry);
+                        context.SaveChanges();
+                        return Ok("New Entry Created");
+
+                    }
+
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
 
     } 
 }
