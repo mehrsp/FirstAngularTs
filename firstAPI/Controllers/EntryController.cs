@@ -32,6 +32,28 @@ namespace firstAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        public IHttpActionResult GetEntry(int id)
+        {
+            try
+            {
+                using (var contex = new AppDbContext())
+                {
+                    var entry = contex.Entries.FirstOrDefault(n => n.EntryId == id);
+                    if (entry == null) return NotFound();
+                  
+                    return Ok(entry);
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IHttpActionResult CreateNewEntry([FromBody]Entry entry)
         {
@@ -56,6 +78,54 @@ namespace firstAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut]
+        public IHttpActionResult UpdateEntry(int id ,[FromBody]Entry entry)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+               if (id != entry.EntryId) return BadRequest();
+                using (var context=new AppDbContext())
+                {
+                    var oldEntry=context.Entries.FirstOrDefault(n => n.EntryId == id);
+                    if (oldEntry == null)
+                        return NotFound();
 
+                    oldEntry.Desc = entry.Desc;
+                    oldEntry.IsExpense = entry.IsExpense;
+                    oldEntry.value = entry.value;
+                    context.SaveChanges();
+                    return Ok("The Entry Is Updated!");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpDelete]
+        public IHttpActionResult DeleteEntry(int id)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var entry=context.Entries.FirstOrDefault(n => n.EntryId == id);
+                    if (entry == null) return NotFound();
+                    context.Entries.Remove(entry);
+                    context.SaveChanges();
+                    return Ok("The Entry Deleted!");
+
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+            
     } 
 }
