@@ -22,6 +22,20 @@ namespace firstAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
+            //var corsAttribute = new EnableCorsAttribute("http://localhost:80", "*", "*");
+            //config.EnableCors(corsAttribute);
+            ////config.AddFiveLevelsOfMediaType();
+            //config.MapHttpAttributeRoutes();
+            //config.Filters.Add(new AuthorizeAttribute());
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{action}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
         }
     }
 }

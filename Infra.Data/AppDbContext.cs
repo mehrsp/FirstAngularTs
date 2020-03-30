@@ -14,5 +14,13 @@ namespace Infra.Data
            
         }
         public DbSet<Entry> Entries { get; set; }
+      
+            public bool IsDisposed { get; set; }
+            protected override void Dispose(bool disposing)
+            {
+                IsDisposed = true;
+                base.Dispose(disposing);
+            }
+        
     }
 }
